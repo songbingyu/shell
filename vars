@@ -1,0 +1,16 @@
+#file
+nginx_file=nginx-1.4.1.tar.gz
+pcre_file=pcre-8.33.tar.gz
+soft_target_dir=/data
+nginx_conf_dir=/etc/nginx
+config_file=vars
+#shell
+nginx_shell=/etc/init.d/nginx
+shell_target_dir=/etc/init.d/
+svn_shell=svn_checkout.sh
+config_shell=remote_config_nginx.sh
+#svn 
+svn_addr=http://svn.d.xiaonei.com/ls/nginx/yzxc/
+#log
+log_file=install.log
+

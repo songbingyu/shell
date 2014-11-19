@@ -1,0 +1,43 @@
+//add by bingyu 
+
+1 为了简化部署，下面对服务器的部署进行一些约束
+	
+	* 服务器同一采用centos6.5 ( cat /etc/issue 查看) 2.6.32 内核(uname -a)
+	
+	* 所有服务器必须安装 screen expect ， 如果没有 yum install expect yum install expect
+	
+	* 所有服务器必须创建目录/data/reagame ，并将不少于100G的硬盘挂载到/data 下面,采用ext4 文件系统
+	  在挂载前要 用 fdisk 格式化 硬盘
+	
+	* 所有服务器使用同一个账号 密码， 配置在script/vars 里面
+
+
+2 服务器更新流程
+	
+目前的服务器更新流程： 1 ./reagame_deploy.sh iplist.all  该脚本将会更具SVN 和当前的时间生成一个新的版本包，同时会生成一个MD5 和当前包名的文件
+						同时将对应的packet copy 到iplist.all 里面所有机器的 script/vars 指定的 deployDir 目录，
+						
+					 2  copy完当前包后，同时会将curPacketName MD5 serverStart.sh server_update.sh 脚本copy到目标机
+					
+					 3  copy完成后，在目标机器上执行上面copy的server_update.sh 
+					
+					 4  server_update.sh 会首先检查包的MD5 是否和MD5文件里面的md5一致，由于网络传输的不确定性，这一步其实是必须的.
+						如果md5校验失败，该脚本会自动退出,并输出错误信息
+
+					 5  上述校验成功，该脚本会将旧的存在的版本备份到 ./back里面，并将新版本解压到./bin 里面 
+					 
+ 					 6  检查上述脚本的输出，查看是否有copy失败的，手动处理， copy完成后，对应的目标机器
+
+					 7  上述操作无误后.使用restartServers.sh $1 $2 重启对应的进程 $1 代表Server文件名，$1 服务器组号 
+						eg	./restartServers GameServer 1
+
+					 8  script/iplist.game ... 代表了对应的服务器列表
+
+					 8  由于某些原因，重启重启脚本可能执行失败，这时候要手动介入，注意脚本输出
+
+3 资源包更新流程
+
+#####################################################################################################################
+
+	上述流程还存在一些缺陷，后面会不断完善
+	

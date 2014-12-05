@@ -15,6 +15,10 @@ cp -r   ../Bin/*  $packet_name
 cp ./*Monitor.sh  $packet_name
 
 tar -jcvf $packet_name.tar.bz2  ./$packet_name
+if [ $? -ne  0 ]; then 
+echo "tar packet fail"
+exit 1
+fi
 
 rm -rf $packet_name
 

@@ -3,7 +3,7 @@ set timeout 1000
 
 set host [lindex $argv 0]
 
-set loguser 0
+#log_user 0
 set username [lindex $argv 1]
 set password [lindex $argv 2]
 set src_file [lindex $argv 3]

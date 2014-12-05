@@ -9,6 +9,7 @@ set shellName [lindex $argv 4]
 set serverName [lindex $argv 5]
 set serverIndex [lindex $argv 6 ] 
 
+#log_user 0
 
 set timeout 1000                  
 
